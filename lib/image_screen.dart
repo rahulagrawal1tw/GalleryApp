@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -77,16 +78,79 @@ class _ImageScreen extends State<ImageScreen> {
         ],
         backgroundColor: Colors.blue.shade900,
       ),
-      body: GridView.builder(
-          itemCount: imagePaths.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, crossAxisSpacing: 4, mainAxisSpacing: 4),
-          itemBuilder: (context, index) {
-            return Image.asset(
-              imagePaths[index],
-              fit: BoxFit.scaleDown,
+      body: getViewWidget(_viewType),
+    );
+  }
+
+  Widget getViewWidget(String viewType) {
+    switch (viewType) {
+      case 'list':
+        return buildListView();
+      case 'grid':
+        return buildGridView();
+      case 'carousel':
+        return buildCarouselView(imagePaths);
+      default:
+        return Container(); // Or any other default widget
+    }
+  }
+
+  Widget buildListView() {
+    // Implement your ListView logic here
+    return ListView.builder(
+      itemCount: imagePaths.length,
+      itemBuilder: (context, index) {
+        return Image.asset(
+          imagePaths[index],
+          fit: BoxFit.scaleDown,
+        );
+      },
+    );
+  }
+
+  Widget buildGridView() {
+    // Implement your GridView logic here
+    return GridView.builder(
+      itemCount: imagePaths.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, crossAxisSpacing: 4, mainAxisSpacing: 4),
+      itemBuilder: (context, index) {
+        return Image.asset(
+          imagePaths[index],
+          fit: BoxFit.scaleDown,
+        );
+      },
+    );
+  }
+
+  Widget buildCarouselView(List<String> imagePaths) {
+    return CarouselSlider(
+      options: CarouselOptions(
+        aspectRatio: 16/9,
+        viewportFraction: 0.8,
+        autoPlay: false,
+        autoPlayInterval: const Duration(seconds: 3),
+        autoPlayAnimationDuration: const Duration(milliseconds: 800),
+        autoPlayCurve: Curves.fastOutSlowIn,
+        pauseAutoPlayOnTouch: true,
+        enlargeCenterPage: true,
+        scrollDirection: Axis.horizontal,
+      ),
+      items: imagePaths.map((item) {
+        return Builder(
+          builder: (BuildContext context) {
+            return Container(
+              width: double.infinity,
+              height: double.infinity,
+              margin: const EdgeInsets.symmetric(horizontal: 5.0),
+              child: Image.asset(
+                item,
+                fit: BoxFit.cover,
+              ),
             );
-          }),
+          },
+        );
+      }).toList(),
     );
   }
 }
