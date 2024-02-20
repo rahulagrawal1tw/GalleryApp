@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gallery_app/view_widget.dart';
+import 'package:gallery_app/gallery_widget.dart';
 import 'package:gallery_app/widgets/dropdown_button_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -68,7 +68,7 @@ class _HomeScreen extends State<HomeScreen> {
         ],
         backgroundColor: theme.appBarTheme.backgroundColor,
       ),
-      body: ViewWidget(viewType: _viewType, imagePaths: imagePaths),
+      body: GalleryWidget(viewType: _viewType, imagePaths: imagePaths),
     );
   }
 }

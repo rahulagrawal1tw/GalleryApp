@@ -3,8 +3,8 @@ import 'package:gallery_app/widgets/carousel_view.dart';
 import 'package:gallery_app/widgets/image_grid_view.dart';
 import 'package:gallery_app/widgets/image_list_view.dart';
 
-class ViewWidget extends StatelessWidget {
-  const ViewWidget(
+class GalleryWidget extends StatelessWidget {
+  const GalleryWidget(
       {super.key, required this.viewType, required this.imagePaths});
   final String viewType;
   final List<String> imagePaths;
