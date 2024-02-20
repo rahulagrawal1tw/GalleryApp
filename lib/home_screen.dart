@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:gallery_app/view_widget.dart';
+import 'package:gallery_app/widgets/dropdown_button_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum ViewType { list, carousel, grid }
 
-class ImageScreen extends StatefulWidget {
-  const ImageScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _ImageScreen();
+    return _HomeScreen();
   }
 }
 
-class _ImageScreen extends State<ImageScreen> {
+class _HomeScreen extends State<HomeScreen> {
   String _viewType = ViewType.list.name; // Default to list view
 
   // Define a list of asset paths representing your images
@@ -51,6 +52,9 @@ class _ImageScreen extends State<ImageScreen> {
   _saveViewPreference(String preference) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('viewPreference', preference);
+    setState(() {
+      _viewType = preference;
+    });
   }
 
   @override
@@ -60,22 +64,7 @@ class _ImageScreen extends State<ImageScreen> {
       appBar: AppBar(
         title: const Text("Gallery App"),
         actions: <Widget>[
-          DropdownButton<String>(
-            value: _viewType,
-            onChanged: (value) {
-              setState(() {
-                _viewType = value ?? "";
-                _saveViewPreference(_viewType);
-              });
-            },
-            items: <ViewType>[ViewType.list, ViewType.grid, ViewType.carousel]
-                .map<DropdownMenuItem<String>>((ViewType value) {
-              return DropdownMenuItem<String>(
-                value: value.name,
-                child: Text(value.name),
-              );
-            }).toList(),
-          ),
+          DropdownButtonWidget(saveViewPreference: _saveViewPreference)
         ],
         backgroundColor: theme.appBarTheme.backgroundColor,
       ),
