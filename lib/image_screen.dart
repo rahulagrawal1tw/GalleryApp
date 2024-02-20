@@ -55,6 +55,7 @@ class _ImageScreen extends State<ImageScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context); // Access app theme here
     return Scaffold(
       appBar: AppBar(
         title: const Text("Gallery App"),
@@ -76,7 +77,7 @@ class _ImageScreen extends State<ImageScreen> {
             }).toList(),
           ),
         ],
-        backgroundColor: Colors.blue.shade900,
+        backgroundColor: theme.appBarTheme.backgroundColor,
       ),
       body: ViewWidget(viewType: _viewType, imagePaths: imagePaths),
     );
