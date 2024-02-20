@@ -6,10 +6,17 @@ class ImageGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final orientation = MediaQuery.of(context).orientation;
+    final isPortrait = orientation == Orientation.portrait;
+    int crossAxisCount = isPortrait ? 2 : 3;
+
     return GridView.builder(
       itemCount: imagePaths.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, crossAxisSpacing: 4, mainAxisSpacing: 4),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: crossAxisCount,
+        crossAxisSpacing: 4,
+        mainAxisSpacing: 4,
+      ),
       itemBuilder: (context, index) {
         return Image.asset(
           imagePaths[index],
