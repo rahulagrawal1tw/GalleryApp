@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gallery_app/gallery_widget.dart';
 import 'package:gallery_app/native_preference_helper.dart';
 import 'package:gallery_app/widgets/custom_app_bar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 enum ViewType { list, carousel, grid }
 
@@ -38,7 +37,6 @@ class _HomeScreen extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    _saveViewPreference('list');
     _loadViewPreference();
   }
 
@@ -68,7 +66,7 @@ class _HomeScreen extends State<HomeScreen> {
 
   // Save user preference to SharedPreferences
   _saveViewPreference(String preference) async {
-    await NativePreferenceHelper.setValue('viewPreference', preference);
+    NativePreferenceHelper.setValue('viewPreference', preference);
     setState(() {
       _viewType = preference;
     });
@@ -77,7 +75,7 @@ class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(saveViewPreference: _saveViewPreference),
+      appBar: CustomAppBar(saveViewPreference: _saveViewPreference,viewType: _viewType),
       body: GalleryWidget(viewType: _viewType, imagePaths: imagePaths),
     );
   }

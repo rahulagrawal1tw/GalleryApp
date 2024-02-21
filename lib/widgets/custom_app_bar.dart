@@ -5,9 +5,10 @@ import 'package:gallery_app/widgets/dropdown_button_widget.dart';
 
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key, required this.saveViewPreference});
+  const CustomAppBar({super.key, required this.saveViewPreference, required this.viewType});
 
   final void Function(String) saveViewPreference;
+  final String viewType;
 
   @override
   State<CustomAppBar> createState() => _CustomAppBarState();
@@ -61,12 +62,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context); // Access app theme here
     return Scaffold(
       appBar: AppBar(
         title: const Text("Gallery App"),
         actions: <Widget>[
-          DropdownButtonWidget(saveViewPreference: widget.saveViewPreference)
+          DropdownButtonWidget(saveViewPreference: widget.saveViewPreference,viewType: widget.viewType)
         ],
         flexibleSpace: Container(
           decoration: BoxDecoration(
