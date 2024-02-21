@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gallery_app/preview_screen.dart';
 
 class ImageListView extends StatelessWidget {
-  const ImageListView({super.key, required this.imagePaths});
+  const ImageListView({super.key, required this.imagePaths, required this.onImageClicked});
 
   final List<String> imagePaths;
+  final Function(String) onImageClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -12,13 +12,7 @@ class ImageListView extends StatelessWidget {
       itemCount: imagePaths.length,
       itemBuilder: (context, index) {
         return GestureDetector(
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        PreviewScreen(image: imagePaths[index])));
-          },
+          onTap: () => onImageClicked(imagePaths[index]),
           child: Image.asset(
             imagePaths[index],
             fit: BoxFit.scaleDown,

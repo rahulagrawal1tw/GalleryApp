@@ -1,12 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-import '../preview_screen.dart';
-
 class CarouselView extends StatelessWidget {
-  const CarouselView({super.key, required this.imagePaths});
+  const CarouselView(
+      {super.key, required this.imagePaths, required this.onImageClicked});
 
   final List<String> imagePaths;
+  final Function(String) onImageClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +31,7 @@ class CarouselView extends StatelessWidget {
                 height: double.infinity,
                 margin: const EdgeInsets.symmetric(horizontal: 5.0),
                 child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => PreviewScreen(image: item)));
-                  },
+                  onTap: () => onImageClicked(item),
                   child: Image.asset(
                     item,
                     fit: BoxFit.fill,
