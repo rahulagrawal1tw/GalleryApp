@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ImageGridView extends StatelessWidget {
-  const ImageGridView(
-      {super.key, required this.imagePaths, required this.onImageClicked});
+  const ImageGridView({
+    Key? key,
+    required this.imagePaths,
+    required this.onImageClicked,
+  }) : super(key: key);
 
   final List<String> imagePaths;
   final Function(String) onImageClicked;
@@ -21,11 +24,13 @@ class ImageGridView extends StatelessWidget {
         mainAxisSpacing: 4,
       ),
       itemBuilder: (context, index) {
+        Key itemKey = ValueKey(imagePaths[index]);
         return GestureDetector(
           onTap: () => onImageClicked(imagePaths[index]),
           child: Image.asset(
             imagePaths[index],
             fit: BoxFit.scaleDown,
+            key: itemKey,
           ),
         );
       },

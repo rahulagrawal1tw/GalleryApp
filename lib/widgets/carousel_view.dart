@@ -2,8 +2,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class CarouselView extends StatelessWidget {
-  const CarouselView(
-      {super.key, required this.imagePaths, required this.onImageClicked});
+  const CarouselView({
+    Key? key,
+    required this.imagePaths,
+    required this.onImageClicked,
+  }) : super(key: key);
 
   final List<String> imagePaths;
   final Function(String) onImageClicked;
@@ -26,6 +29,7 @@ class CarouselView extends StatelessWidget {
         items: imagePaths.map((item) {
           return Builder(
             builder: (BuildContext context) {
+              Key itemKey = ValueKey(item);
               return Container(
                 width: double.infinity,
                 height: double.infinity,
@@ -35,6 +39,7 @@ class CarouselView extends StatelessWidget {
                   child: Image.asset(
                     item,
                     fit: BoxFit.fill,
+                    key: itemKey,
                   ),
                 ),
               );
