@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gallery_app/gallery_widget.dart';
 import 'package:gallery_app/widgets/custom_app_bar.dart';
-import 'package:gallery_app/widgets/dropdown_button_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:math';
-import 'dart:async';
 
 enum ViewType { list, carousel, grid }
 
@@ -62,7 +59,6 @@ class _HomeScreen extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context); // Access app theme here
     return Scaffold(
       appBar: CustomAppBar(saveViewPreference: _saveViewPreference),
       body: GalleryWidget(viewType: _viewType, imagePaths: imagePaths),
