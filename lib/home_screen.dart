@@ -60,7 +60,7 @@ class _HomeScreen extends State<HomeScreen> {
   _loadViewPreference() async {
     final value = await NativePreferenceHelper.getValue('viewPreference') ?? ViewType.list.name;
     setState(() {
-      _viewType = value;
+      _viewType = value.isNotEmpty ? value : ViewType.list.name;
     });
   }
 

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../preview_screen.dart';
+
 class ImageGridView extends StatelessWidget {
   const ImageGridView({super.key, required this.imagePaths});
+
   final List<String> imagePaths;
 
   @override
@@ -18,9 +21,18 @@ class ImageGridView extends StatelessWidget {
         mainAxisSpacing: 4,
       ),
       itemBuilder: (context, index) {
-        return Image.asset(
-          imagePaths[index],
-          fit: BoxFit.scaleDown,
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        PreviewScreen(image: imagePaths[index])));
+          },
+          child: Image.asset(
+            imagePaths[index],
+            fit: BoxFit.scaleDown,
+          ),
         );
       },
     );

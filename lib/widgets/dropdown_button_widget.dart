@@ -15,7 +15,7 @@ class _DropdownButtonWidgetState extends State<DropdownButtonWidget> {
   Widget build(BuildContext context) {
     String viewType = widget.viewType;
     return DropdownButton<String>(
-      value: widget.viewType,
+      value: viewType,
       onChanged: (value) {
         setState(() {
           viewType = value ?? "";

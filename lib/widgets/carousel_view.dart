@@ -1,8 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
+import '../preview_screen.dart';
+
 class CarouselView extends StatelessWidget {
   const CarouselView({super.key, required this.imagePaths});
+
   final List<String> imagePaths;
 
   @override
@@ -27,9 +30,17 @@ class CarouselView extends StatelessWidget {
                 width: double.infinity,
                 height: double.infinity,
                 margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                child: Image.asset(
-                  item,
-                  fit: BoxFit.fill,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PreviewScreen(image: item)));
+                  },
+                  child: Image.asset(
+                    item,
+                    fit: BoxFit.fill,
+                  ),
                 ),
               );
             },
