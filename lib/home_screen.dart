@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gallery_app/gallery_widget.dart';
-import 'package:gallery_app/native_preference_helper.dart';
+import 'package:gallery_app/utils/native_permission_helper.dart';
+import 'package:gallery_app/utils/native_preference_helper.dart';
 import 'package:gallery_app/widgets/custom_app_bar.dart';
 
 enum ViewType { list, carousel, grid }
@@ -16,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreen extends State<HomeScreen> {
   String _viewType = ViewType.list.name; // Default to list view
+  final permissionHelper = NativePermissionHelper();
 
   // Define a list of asset paths representing your images
   final List<String> imagePaths = [
@@ -37,7 +39,13 @@ class _HomeScreen extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    _requestImagesPermission();
     _loadViewPreference();
+  }
+
+  _requestImagesPermission() async {
+    final isPermissionGranted = await permissionHelper.requestImagesPermission();
+    print('Permission Granted: $isPermissionGranted');
   }
 
 /*  // Load user preference from SharedPreferences
