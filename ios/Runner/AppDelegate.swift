@@ -27,7 +27,7 @@ import Flutter
       } else if call.method == "getValue" {
         if let arguments = call.arguments as? [String: Any],
            let key = arguments["key"] as? String {
-           self.getValue()
+           self.getValue(key: key,result: result)
         }
       } else {
         result(FlutterMethodNotImplemented)
@@ -39,11 +39,11 @@ import Flutter
   }
 
   private func setValue(key: String, value: String) {
-  self.defaults.stValue(value, forKey: key)
+  self.defaults.setValue(value, forKey: key)
   self.defaults.synchronize()
   }
 
-  private func getValue() {
+  private func getValue(key: String, result: @escaping FlutterResult) {
   let value = self.defaults.string(forKey: key) ?? ""
   result(value)
   }
