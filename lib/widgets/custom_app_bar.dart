@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:gallery_app/theme_provider.dart';
 import 'package:gallery_app/widgets/dropdown_button_widget.dart';
-
+import 'package:provider/provider.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key, required this.saveViewPreference, required this.viewType});
+  const CustomAppBar(
+      {super.key, required this.saveViewPreference, required this.viewType});
 
   final void Function(String) saveViewPreference;
   final String viewType;
@@ -66,7 +68,15 @@ class _CustomAppBarState extends State<CustomAppBar> {
       appBar: AppBar(
         title: const Text("Gallery App"),
         actions: <Widget>[
-          DropdownButtonWidget(saveViewPreference: widget.saveViewPreference,viewType: widget.viewType)
+          DropdownButtonWidget(
+              saveViewPreference: widget.saveViewPreference,
+              viewType: widget.viewType),
+          Switch(
+            value: Provider.of<ThemeProvider>(context).isDarkMode,
+            onChanged: (value) {
+              Provider.of<ThemeProvider>(context, listen: false).toggleTheme();
+            },
+          ),
         ],
         flexibleSpace: Container(
           decoration: BoxDecoration(
