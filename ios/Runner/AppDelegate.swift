@@ -39,7 +39,7 @@ import Flutter
   }
 
   private func setValue(key: String, value: String) {
-  self.defaults.stVaelue(value, forKey: key)
+  self.defaults.stValue(value, forKey: key)
   self.defaults.synchronize()
   }
 
