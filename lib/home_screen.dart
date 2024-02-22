@@ -46,29 +46,14 @@ class _HomeScreen extends State<HomeScreen> {
   }
 
   _requestImagesPermission() async {
-    final isPermissionGranted = await permissionHelper.requestImagesPermission();
+    final isPermissionGranted =
+        await permissionHelper.requestImagesPermission();
     print('Permission Granted: $isPermissionGranted');
   }
 
-/*  // Load user preference from SharedPreferences
   _loadViewPreference() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _viewType = (prefs.getString('viewPreference') ?? ViewType.list.name);
-    });
-  }
-
-  // Save user preference to SharedPreferences
-  _saveViewPreference(String preference) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('viewPreference', preference);
-    setState(() {
-      _viewType = preference;
-    });
-  }*/
-
-  _loadViewPreference() async {
-    final value = await NativePreferenceHelper.getValue('viewPreference') ?? ViewType.list.name;
+    final value = await NativePreferenceHelper.getValue('viewPreference') ??
+        ViewType.list.name;
     setState(() {
       _viewType = value.isNotEmpty ? value : ViewType.list.name;
     });
@@ -85,7 +70,8 @@ class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    final bodyColor = themeProvider.isDarkMode ? Colors.blue.shade900 : Colors.blue.shade200;
+    final bodyColor =
+        themeProvider.isDarkMode ? Colors.blue.shade900 : Colors.blue.shade200;
     return Scaffold(
       appBar: CustomAppBar(
           saveViewPreference: _saveViewPreference, viewType: _viewType),
