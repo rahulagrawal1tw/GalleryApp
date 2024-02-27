@@ -69,14 +69,12 @@ class _HomeScreen extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
-    final bodyColor =
-        themeProvider.isDarkMode ? Colors.blue.shade900 : Colors.blue.shade200;
+    final ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: CustomAppBar(
           saveViewPreference: _saveViewPreference, viewType: _viewType),
       body: Container(
-        color: bodyColor,
+        color: theme.colorScheme.secondary,
         child: GalleryWidget(viewType: _viewType, imagePaths: imagePaths),
       ),
     );

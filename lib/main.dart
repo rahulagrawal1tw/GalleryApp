@@ -6,13 +6,27 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => ThemeProvider(),
-      child: MaterialApp(
-        theme: ThemeData.from(colorScheme: lightColorScheme),
-        darkTheme: ThemeData.from(colorScheme: darkColorScheme),
-        home: const HomeScreen(),
-      ),
-    ),
+    const SampleApp()
   );
+}
+
+class SampleApp extends StatelessWidget {
+  const SampleApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (_) => ThemeProvider(),
+      child: Builder(
+        builder: (context) {
+          return MaterialApp(
+            theme: ThemeData.from(colorScheme: lightColorScheme),
+            darkTheme: ThemeData.from(colorScheme: darkColorScheme),
+            home: const HomeScreen(),
+            themeMode: Provider.of<ThemeProvider>(context).isDarkMode ? ThemeMode.dark :ThemeMode.light,
+          );
+        }
+      ),
+    );
+  }
 }
